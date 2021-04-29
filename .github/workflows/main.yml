@@ -13,15 +13,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: plugins/${{ github.event.repository.name }}
+        path: plugin
 
     - name: Download pmmp files
       run: |
         curl -JLOs "https://jenkins.pmmp.io/job/PHP-7.4-Linux-x86_64/lastSuccessfulBuild/artifact/PHP_Linux-x86_64.tar.gz" &
-        curl -JLOs "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/DevTools.phar" &
-        curl -JLOs "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP.phar" &
+        curl -JLOs "https://raw.githubusercontent.com/pmmp/DevTools/1.14/src/DevTools/ConsoleScript.php" &
         wait
-        mv DevTools.phar plugins
 
     - name: Prepare php binary
       run: |
@@ -33,18 +31,7 @@ jobs:
 
     - name: Build plugin
       run: |
-        echo -e "makeplugin ${{ github.event.repository.name }}\nstop\n" | \
-          php PocketMine-MP.phar --no-wizard \
-          --disable-ansi \
-          --disable-readline \
-          --auto-report.enabled=0 \
-          --anonymous-statistics.enabled=0 \
-          --auto-updater.enabled=0 \
-          --settings.enable-dev-builds=1
-
-    - name: Check log
-      run: |
-        if [ $(grep -c "ERROR\|CRITICAL\|EMERGENCY" "server.log") -ne 0 ]; then exit 1; fi
+        php -dphar.readonly=0 ConsoleScript.php --make plugin --out ${{ github.event.repository.name }}.phar
 
     - name: Create github release
       uses: softprops/action-gh-release@v1
@@ -52,4 +39,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         files: |
-          plugin_data/DevTools/${{ github.event.repository.name }}_v*.phar
+          ${{ github.event.repository.name }}.phar
