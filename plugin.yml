@@ -1,4 +1,4 @@
 name: PluginTemplate
-version: 0.0.2
+version: 0.0.3
 main: NeiroNetwork\PluginTemplate\Main
 api: 3.19.1
