@@ -15,8 +15,8 @@ jobs:
     - name: Build plugin
       run: |
         curl -sLo .php https://raw.githubusercontent.com/pmmp/DevTools/master/src/ConsoleScript.php
-        php -dphar.readonly=0 .php --make ./ --out ${{ github.event.repository.name }}.phar
+        php -dphar.readonly=0 .php --make ./ --out ${{ github.event.repository.name }}_v${{ github.ref_name }}.phar
 
     - uses: softprops/action-gh-release@v0.1.14
       with:
-        files: ${{ github.event.repository.name }}.phar
+        files: ${{ github.event.repository.name }}_v${{ github.ref_name }}.phar
