@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Rewrite the manifest file
-      run: sed -i -e "s/PluginTemplate/${{ github.event.repository.name }}/" plugin.yml
+    - name: Rewrite the plugin files
+      run: sed -i -e "s/PluginTemplate/${{ github.event.repository.name }}/" plugin.yml src/Main.php
 
     - name: Delete itself
       run: rm .github/workflows/setup.yml
