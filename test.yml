@@ -1,5 +1,0 @@
-name: MyRepo
-version: 0.0.1
-main: NeiroNetwork\MyRepo\Main
-api: 4.0.0
-src-namespace-prefix: NeiroNetwork\MyRepo
