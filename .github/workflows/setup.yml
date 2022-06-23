@@ -17,7 +17,7 @@ jobs:
       run: sed -i -e "s/PluginTemplate/${{ github.event.repository.name }}/" plugin.yml
 
     - name: Delete itself
-      run: rm .github/workflow/setup.yml
+      run: rm .github/workflows/setup.yml
 
     - name: Commit and push changes
       run: |
