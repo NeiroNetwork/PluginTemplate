@@ -2,6 +2,8 @@ name: Repository Setup Workflow
 
 on:
   push:
+    branches:
+      - main
 
 jobs:
   setup:
