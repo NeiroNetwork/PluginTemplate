@@ -4,6 +4,7 @@
 .idea/
 nbproject/
 .vscode/
+.editorconfig
 
 # Windows
 Thumbs.db
