@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   setup:
-    
+
     runs-on: ubuntu-latest
 
     if: github.event.created
