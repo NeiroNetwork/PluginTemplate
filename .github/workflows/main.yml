@@ -28,7 +28,7 @@ jobs:
           system("php -dphar.readonly=0 virion.phar ${{ env.OUTPUT_FILE }}");
         }'
 
-    - uses: softprops/action-gh-release@v0.1.14
+    - uses: softprops/action-gh-release@v0.1.15
       with:
         name: ${{ github.event.repository.name }} ${{ github.ref_name }}
         generate_release_notes: true
