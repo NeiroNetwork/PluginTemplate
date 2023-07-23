@@ -1,4 +1,4 @@
-name: build
+name: Create Release Build
 
 on:
   push:
@@ -9,7 +9,7 @@ env:
   OUTPUT_FILE: ${{ github.event.repository.name }}_v${{ github.ref_name }}.phar
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
