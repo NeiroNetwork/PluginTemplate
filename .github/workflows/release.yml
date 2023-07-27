@@ -24,12 +24,17 @@ jobs:
       run: curl -sL https://raw.githubusercontent.com/pmmp/DevTools/1.17.0/src/ConsoleScript.php | php -dphar.readonly=0 -- --make ./ --out $OUTPUT_FILE
 
     - name: Infect virions
-      run: php -r '
-        $data = yaml_parse_file(".poggit.yml") ?:["projects" => [[]]];
-        foreach(reset($data["projects"])["libs"] ?? [] as $lib){
-          file_put_contents("virion.phar", file_get_contents("https://poggit.pmmp.io/v.dl/{$lib["src"]}/" . ($lib["version"] ?? "*")));
-          system("php -dphar.readonly=0 virion.phar ${{ env.OUTPUT_FILE }}");
-        }'
+      shell: php {0}
+      run: |
+        <?php
+        foreach(@yaml_parse_file(".poggit.yml")["projects"] ?? [] as $project){
+          foreach($project["libs"] ?? [] as $lib){
+            $url = "https://poggit.pmmp.io/v.dl/{$lib["src"]}/" . ($lib["version"] ?? "*");
+            @$lib["branch"] && $url .= "?branch={$lib["branch"]}";
+            file_put_contents("virion.phar", file_get_contents($url));
+            system("php -dphar.readonly=0 virion.phar ${{ env.OUTPUT_FILE }}");
+          }
+        }
 
     - uses: softprops/action-gh-release@v0.1.15
       with:
