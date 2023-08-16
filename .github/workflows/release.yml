@@ -26,7 +26,7 @@ jobs:
         yaml_emit_file($description, "plugin.yml");
 
     - name: Build plugin
-      run: curl -sL https://raw.githubusercontent.com/pmmp/DevTools/1.17.0/src/ConsoleScript.php | php -dphar.readonly=0 -- --make ./ --out $OUTPUT_FILE
+      run: curl -sL https://raw.githubusercontent.com/pmmp/DevTools/1.17.1/src/ConsoleScript.php | php -dphar.readonly=0 -- --make ./ --out $OUTPUT_FILE
 
     - name: Infect virions
       shell: php {0}
