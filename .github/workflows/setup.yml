@@ -16,7 +16,7 @@ jobs:
     if: github.event.created
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Rewrite the plugin files
       run: sed -i -e "s/PluginTemplate/${{ github.event.repository.name }}/" plugin.yml src/Main.php .poggit.yml
